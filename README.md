@@ -4,12 +4,19 @@ xili re/un-attach media
 === xili re/un-attach media ===
 
 Contributors: michelwppi
+
 Tags: media, media library, upload, attach, unattach, reattach, dashboard, attachment
+
 Donate link: http://dev.xiligroup.com/
+
 Requires at least: 3.8.3
+
 Tested up to: 4.0-alpha
+
 Stable tag: 0.9.0
+
 License: GPLv2 or later
+
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Unattach, Reattach new actions in Media Library Table list to manage attachments
@@ -24,8 +31,11 @@ Link to [Github by dev.xiligroup](https://github.com/dev-xiligroup/ "Other xili 
 Link to [other plugins made by dev.xiligroup](http://wordpress.org/plugins/search.php?q=xili&sort= "Other xili-plugins").
 
 == Installation ==
+
 1. Upload the folder /xili-re-un-attach-media/ containing files including "xili-re-un-attach-media.php" to the "/wp-content/plugins/" directory.
+
 2. Activate the plugin through the "Plugins" menu in WordPress.
+
 3. Go to Media Library settings page and move your mouse in the File column.
 
 == Frequently Asked Questions ==
@@ -46,7 +56,9 @@ To recover the list, you must be in table mode (see icon on top right).
 == Screenshots ==
 
 1. The new actions in Media Library list in column File.
+
 2. The new action in Media Library list in column File with only unattached files selection.
+
 3. Icon list or thumbnail mode in WP 4.0-alpha
 
 == Changelog ==
