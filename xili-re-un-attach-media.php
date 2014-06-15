@@ -35,6 +35,8 @@ class xili_re_un_attach_media {
 
 		add_action( 'load-upload.php', array( &$this, 'load_upload' ) );
 
+		add_action( 'load-post.php', array( &$this, 'load_post' ) );
+
 		// column header
 		// add_filter( 'manage_media_columns', array( &$this, 'manage_media_columns'), 10, 2 );
 
@@ -45,22 +47,33 @@ class xili_re_un_attach_media {
 		add_filter( 'media_row_actions', array( &$this, 'media_row_actions'), 10, 3 ); // Media Library List Table class and
 
 		add_action( 'admin_menu', array(&$this, 'add_custom_box_in_media_edit') ); // custom meta box in single media edit
+		add_action( 'admin_print_scripts-post.php', array(&$this,'find_post_script') );
 
 		add_action( 'contextual_help', array( &$this,'add_help_text' ), 10, 3 );
 
 	}
 
+	/**
+	 * Add action on top of upload.php to unattach (called also by custom metabox)
+	 *
+	 * @since 0.9.0
+	 *
+	 */
 	function load_upload (){
 		if ( isset ( $_REQUEST['post_id'] ) && $_REQUEST['xiliaction'] ) {
 			check_admin_referer('unattach-post_' .$_REQUEST['post_id']); // nonce control
 
 			if ( $_REQUEST['xiliaction'] == 'unattach' && !empty( $_REQUEST['post_id']) ) {
-				$this->unattach_attachment( $_REQUEST['post_id'] );
-				$_GET['message'] = 1; // generic media updated
+				$this->set_parent_attachment( $_REQUEST['post_id'] );
+
 				if ( $referer = wp_get_referer() ) {
-					$referer = wp_get_referer();
 					if ( false !== strpos( $referer, 'post.php' ) ) { // from metabox in Edit Media
 						$location = add_query_arg( array( 'message' => '1' ) , $referer );
+						wp_redirect( $location );
+						exit;
+					} else if ( false !== strpos( $referer, 'upload.php' ) ) {
+						$location = remove_query_arg( array('xiliaction', 'post_id', '_wpnonce'), $referer ); // clean for further actions
+						$location = add_query_arg( array( 'message' => '1' ) , $location );
 						wp_redirect( $location );
 						exit;
 					}
@@ -72,12 +85,35 @@ class xili_re_un_attach_media {
 		add_action( 'admin_print_footer_scripts', array(&$this, 'print_the_pointers_js') );
 	}
 
+	/**
+	 * Add action on top of post.php to attach (called by custom metabox inside Edit Media)
+	 *
+	 * @since 0.9.0
+	 *
+	 */
+	function load_post (){
+		if ( isset ( $_REQUEST['_ajax_nonce'] ) && isset ( $_REQUEST['found_post_id'] ) && isset ( $_REQUEST['post_type'] ) && 'attachment' == $_REQUEST['post_type'] ) { //error_log ( serialize ($_REQUEST) );
+			wp_verify_nonce( $_REQUEST['_ajax_nonce'], 'find-posts');
+			global $wpdb;
+			$parent_id = (int) $_REQUEST['found_post_id']; // found so > 0
 
-	function unattach_attachment ( $post_id ) {
+			$att_id = $_REQUEST['post_ID'];
+			$attached = $this->set_parent_attachment( $att_id, $parent_id );
+			clean_attachment_cache( $att_id );
+			$_GET['message'] = 1;
+		}
+	}
+
+	function set_parent_attachment ( $att_id, $parent_id = 0 ) {
+		// verify right to modify parent !
+		if ( $parent_id > 0 && !current_user_can( 'edit_post', $parent_id ) )
+				wp_die( __( 'You are not allowed to edit this post.' ) );
+
 		global $wpdb;
-		$wpdb->update( $wpdb->posts, array( 'post_parent' => 0 ),
-			array( 'ID' => (int) $post_id, 'post_type' => 'attachment')
+		$attached = $wpdb->update( $wpdb->posts, array( 'post_parent' => $parent_id ),
+			array( 'ID' => (int) $att_id, 'post_type' => 'attachment' )
 		);
+		return $attached;
 	}
 
 	// future release
@@ -121,7 +157,7 @@ class xili_re_un_attach_media {
 
 	function media_attachment_box () {
 		global $post;
-
+		// inspired from class-wp-media-list-table.php
 		if ( $post->post_parent > 0 )
 			$parent = get_post( $post->post_parent );
 		else
@@ -142,23 +178,34 @@ class xili_re_un_attach_media {
 			</p>
 		<?php
 			$url_unattach = wp_nonce_url('upload.php?xiliaction=unattach&post_id=' . $post->ID ,'unattach-post_' . $post->ID);
-			echo '<p><a href="'.$url_unattach.'">'.__( 'Unattach','xili_re_un_attach_media' ).'</a></p>';
+			echo '<p><a href="'.$url_unattach.'">'.__( 'Unattach','xili_re_un_attach_media' ).'</a>';
+			echo '&nbsp;|&nbsp;';
+			echo '<a href="#the-list" onclick="findPosts.open( \'media[]\',\''.$post->ID.'\' );return false;" class="hide-if-no-js">'.__( 'Reattach','xili_re_un_attach_media' ).'</a></p>';
 
 		} else {
 		?>
 			<p><?php _e( '(Unattached)' );
-				/*
 				echo '<br />';
 				?>
 				<a class="hide-if-no-js"
 					onclick="findPosts.open( 'media[]','<?php echo $post->ID ?>' ); return false;"
 					href="#the-list">
 
-				<?php echo __( 'Attach' ). '</a>'; */ ?>
+				<?php echo __( 'Attach' ). '</a>'; ?>
 			</p>
-		<?php
+			<?php
 		}
-		echo '<p class="xlversion">©xili re/un-attach Media v. ' . XILIUNATTACHMEDIA_VER .'</p>';
+		echo '<div id="ajax-response"></div>';
+		find_posts_div(); // div to search - template.php
+		echo '<p><small>©xili re/un-attach Media v. ' . XILIUNATTACHMEDIA_VER .'</small></p>';
+	}
+
+	function find_post_script () {
+		global $post;
+		if ( get_post_type($post->ID) == 'attachment' ) {
+			wp_enqueue_script( 'wp-ajax-response' );
+			wp_enqueue_script( 'media' ); // media.js
+		}
 	}
 
 	/** pointer and help parts **/
