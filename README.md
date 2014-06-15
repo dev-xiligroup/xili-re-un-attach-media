@@ -32,6 +32,8 @@ Link to [other plugins made by dev.xiligroup](http://wordpress.org/plugins/searc
 
 == Installation ==
 
+Note: if downloaded and unzipped from GitHub - delete "master" suffix - the plugin folder name must be /xili-re-un-attach-media/
+
 1. Upload the folder /xili-re-un-attach-media/ containing files including "xili-re-un-attach-media.php" to the "/wp-content/plugins/" directory.
 
 2. Activate the plugin through the "Plugins" menu in WordPress.
