@@ -2,8 +2,8 @@
 /*
 Plugin Name: xili re/un-attach media
 Plugin URI: http://dev.xiligroup.com/
-Description: An OOP rewritten version of unattach-and-reattach plugin from davidn.de
-Author: dev.xiligroup - MS
+Description: Unattach, Reattach new actions in Media Library Table list to manage attachments
+Author: dev.xiligroup - MSC
 Version: 0.9.0
 Author URI: http://dev.xiligroup.com
 License: GPLv2
@@ -25,8 +25,13 @@ class xili_re_un_attach_media {
 
 	var $news_case = array(); // for pointers
 	var $news_id = 0 ;
+	var $plugin_dir = '';
+	var $plugin_subfoldername = ''; // xili-re-un-attach-media/
 
 	public function __construct() {
+
+		$this->plugin_dir = plugin_dir_url( __FILE__ ) ;
+		$this->plugin_subfoldername = basename ($this->plugin_dir) ;
 
 		add_action( 'load-upload.php', array( &$this, 'load_upload' ) );
 
@@ -47,12 +52,12 @@ class xili_re_un_attach_media {
 		if ( isset ( $_REQUEST['post_id'] ) && $_REQUEST['xiliaction'] ) {
 			check_admin_referer('unattach-post_' .$_REQUEST['post_id']); // nonce control
 
-			if ( $_REQUEST['xiliaction'] == 'unattach' && !empty($_REQUEST['post_id']) ) {
+			if ( $_REQUEST['xiliaction'] == 'unattach' && !empty( $_REQUEST['post_id']) ) {
 				$this->unattach_attachment( $_REQUEST['post_id'] );
 				$_GET['message'] = 1; // generic media updated
 			}
 		}
-		load_plugin_textdomain('xili_re_un_attach_media', false, 'xili-re-un-attach-media/languages' ); // here to be live changed
+		load_plugin_textdomain('xili_re_un_attach_media', false, $this->plugin_subfoldername . '/languages' ); // here to be live changed
 		$this->insert_news_pointer ( 'xreunam_new_version' ); // pointer in menu for updated version
 		add_action( 'admin_print_footer_scripts', array(&$this, 'print_the_pointers_js') );
 	}
@@ -60,12 +65,12 @@ class xili_re_un_attach_media {
 	function unattach_attachment ( $post_id ) {
 		global $wpdb;
 		$wpdb->update( $wpdb->posts, array( 'post_parent' => 0 ),
-			array('ID' => (int) $post_id, 'post_type' => 'attachment')
+			array( 'ID' => (int) $post_id, 'post_type' => 'attachment')
 		);
 	}
 
 	// future release
-	function manage_media_columns ( $posts_columns, $detached ) {
+	function manage_media_columns ( $posts_columns, $detached = null ) { // also called in media-new.php with one params
 
 		return $posts_columns;
 	}
@@ -93,7 +98,7 @@ class xili_re_un_attach_media {
 		return $actions;
 	}
 
-	// pointer and help parts
+	/** pointer and help parts **/
 
 	// called by each pointer
 	function insert_news_pointer ( $case_news ) {
@@ -146,7 +151,7 @@ class xili_re_un_attach_media {
 	/**
 	 * News pointer for tabs
 	 *
-	 * @since 2.6.2
+	 * @since 0.9.0
 	 *
 	 */
 	function localize_admin_js( $case_news, $news_id ) {
