@@ -60,7 +60,7 @@ class xili_re_un_attach_media {
 	 *
 	 */
 	function load_upload (){
-		if ( isset ( $_REQUEST['post_id'] ) && $_REQUEST['xiliaction'] ) {
+		if ( isset ( $_REQUEST['post_id'] ) && isset ( $_REQUEST['xiliaction'] ) ) {
 			check_admin_referer('unattach-post_' .$_REQUEST['post_id']); // nonce control
 
 			if ( $_REQUEST['xiliaction'] == 'unattach' && !empty( $_REQUEST['post_id']) ) {
@@ -92,8 +92,8 @@ class xili_re_un_attach_media {
 	 *
 	 */
 	function load_post (){
-		if ( isset ( $_REQUEST['_ajax_nonce'] ) && isset ( $_REQUEST['found_post_id'] ) && isset ( $_REQUEST['post_type'] ) && 'attachment' == $_REQUEST['post_type'] ) { //error_log ( serialize ($_REQUEST) );
-			wp_verify_nonce( $_REQUEST['_ajax_nonce'], 'find-posts');
+		if ( isset ( $_REQUEST['_ajax_nonce'] ) && isset ( $_REQUEST['found_post_id'] ) && isset ( $_REQUEST['post_type'] ) && 'attachment' == $_REQUEST['post_type'] ) {
+			wp_verify_nonce( $_REQUEST['_ajax_nonce'], 'find-posts'); // generated in find posts div requester
 			global $wpdb;
 			$parent_id = (int) $_REQUEST['found_post_id']; // found so > 0
 
@@ -346,7 +346,7 @@ class xili_re_un_attach_media {
  */
 function xili_re_un_attach_media () {
 	if ( is_admin() ){
-		$xili_re_un_attach_media = new xili_re_un_attach_media(); // only used in admin side (upload.php screen)
+		$xili_re_un_attach_media = new xili_re_un_attach_media(); // only used in admin side (upload.php and Edit Media screen)
 	}
 }
 add_action( 'plugins_loaded', 'xili_re_un_attach_media', 10 );
