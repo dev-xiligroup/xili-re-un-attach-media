@@ -44,6 +44,8 @@ class xili_re_un_attach_media {
 		// row actions
 		add_filter( 'media_row_actions', array( &$this, 'media_row_actions'), 10, 3 ); // Media Library List Table class and
 
+		add_action( 'admin_menu', array(&$this, 'add_custom_box_in_media_edit') ); // custom meta box in single media edit
+
 		add_action( 'contextual_help', array( &$this,'add_help_text' ), 10, 3 );
 
 	}
@@ -55,12 +57,21 @@ class xili_re_un_attach_media {
 			if ( $_REQUEST['xiliaction'] == 'unattach' && !empty( $_REQUEST['post_id']) ) {
 				$this->unattach_attachment( $_REQUEST['post_id'] );
 				$_GET['message'] = 1; // generic media updated
+				if ( $referer = wp_get_referer() ) {
+					$referer = wp_get_referer();
+					if ( false !== strpos( $referer, 'post.php' ) ) { // from metabox in Edit Media
+						$location = add_query_arg( array( 'message' => '1' ) , $referer );
+						wp_redirect( $location );
+						exit;
+					}
+				}
 			}
 		}
-		load_plugin_textdomain('xili_re_un_attach_media', false, $this->plugin_subfoldername . '/languages' ); // here to be live changed
+
 		$this->insert_news_pointer ( 'xreunam_new_version' ); // pointer in menu for updated version
 		add_action( 'admin_print_footer_scripts', array(&$this, 'print_the_pointers_js') );
 	}
+
 
 	function unattach_attachment ( $post_id ) {
 		global $wpdb;
@@ -89,13 +100,65 @@ class xili_re_un_attach_media {
 		} else {
 			if ( current_user_can( 'edit_post', $post->ID ) ) {
 				$url_unattach = wp_nonce_url('upload.php?xiliaction=unattach&post_id=' . $post->ID ,'unattach-post_' . $post->ID); //
-				$actions['un-attach'] = '<a href="'.$url_unattach.'" class="hide-if-no-js">'.__( 'Unattach','xili_re_un_attach_media' ).'</a>';
+				$actions['un-attach'] = '<a href="'.$url_unattach.'" >'.__( 'Unattach','xili_re_un_attach_media' ).'</a>';
 			}
 			if ( current_user_can( 'edit_post', $post->ID ) )
 				$actions['re-attach'] = '<a href="#the-list" onclick="findPosts.open( \'media[]\',\''.$post->ID.'\' );return false;" class="hide-if-no-js">'.__( 'Reattach','xili_re_un_attach_media' ).'</a>';
 		}
 
 		return $actions;
+	}
+
+	/**
+	 * Add a meta box in Edit Media page (edit-form-advanced.php)
+	 * @since 0.9.0
+	 *
+	 */
+	function add_custom_box_in_media_edit(){
+		load_plugin_textdomain('xili_re_un_attach_media', false, $this->plugin_subfoldername . '/languages' ); // here to be live changed
+		add_meta_box( 'xili_media_attachment', __( 'Attachment infos', 'xili_re_un_attach_media') , array(&$this,'media_attachment_box'), 'attachment', 'side', 'low' );
+	}
+
+	function media_attachment_box () {
+		global $post;
+
+		if ( $post->post_parent > 0 )
+			$parent = get_post( $post->post_parent );
+		else
+			$parent = false;
+
+		if ( $parent ) {
+			$title = _draft_or_post_title( $post->post_parent );
+			$parent_type = get_post_type_object( $parent->post_type );
+
+			echo '<p>'.__( 'Attached to:', 'xili_re_un_attach_media' ).'<br /><strong>';
+			if ( current_user_can( 'edit_post', $post->post_parent ) && $parent_type && $parent_type->show_ui ) { ?>
+					<a href="<?php echo get_edit_post_link( $post->post_parent ); ?>">
+						<?php echo $title ?></a><?php
+				} else {
+					echo $title;
+				} ?></strong>,
+				<?php echo get_the_time( __( 'Y/m/d' ) ); ?>
+			</p>
+		<?php
+			$url_unattach = wp_nonce_url('upload.php?xiliaction=unattach&post_id=' . $post->ID ,'unattach-post_' . $post->ID);
+			echo '<p><a href="'.$url_unattach.'">'.__( 'Unattach','xili_re_un_attach_media' ).'</a></p>';
+
+		} else {
+		?>
+			<p><?php _e( '(Unattached)' );
+				/*
+				echo '<br />';
+				?>
+				<a class="hide-if-no-js"
+					onclick="findPosts.open( 'media[]','<?php echo $post->ID ?>' ); return false;"
+					href="#the-list">
+
+				<?php echo __( 'Attach' ). '</a>'; */ ?>
+			</p>
+		<?php
+		}
+		echo '<p class="xlversion">©xili re/un-attach Media v. ' . XILIUNATTACHMEDIA_VER .'</p>';
 	}
 
 	/** pointer and help parts **/
@@ -155,8 +218,8 @@ class xili_re_un_attach_media {
 	 *
 	 */
 	function localize_admin_js( $case_news, $news_id ) {
-		$about = __('Docs about xili re/un-attach media', 'xili-language');
-		$changelog = __('Changelog tab of xili re/un-attach media', 'xili-language');
+		$about = __('Docs about xili re/un-attach media', 'xili_re_un_attach_media');
+		$changelog = __('Changelog tab of xili re/un-attach media', 'xili_re_un_attach_media');
 		//$pointer_Offset = '';
 		$pointer_edge = '';
 		$pointer_at = '';

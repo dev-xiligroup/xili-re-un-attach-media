@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: xili re/un attach media\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-06-14 21:32+0100\n"
-"PO-Revision-Date: 2014-06-14 21:46+0100\n"
+"POT-Creation-Date: 2014-06-15 11:30+0100\n"
+"PO-Revision-Date: 2014-06-15 11:32+0100\n"
 "Last-Translator: dev.xiligroup <contact@xiligroup.com>\n"
 "Language-Team: dev.xiligroup.com <contact@xiligroup.com>\n"
 "Language: fr_FR\n"
@@ -20,36 +20,52 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: ..\n"
 
-#: ../xili-re-un-attach-media.php:85
+#: ../xili-re-un-attach-media.php:105
 msgid "Attach"
 msgstr "Joindre"
 
-#: ../xili-re-un-attach-media.php:89
+#: ../xili-re-un-attach-media.php:109 ../xili-re-un-attach-media.php:150
 msgid "Unattach"
 msgstr "Séparer"
 
-#: ../xili-re-un-attach-media.php:92
+#: ../xili-re-un-attach-media.php:112
 msgid "Reattach"
 msgstr "Joindre à nouveau"
 
-#: ../xili-re-un-attach-media.php:155
+#: ../xili-re-un-attach-media.php:124
+msgid "Attachment infos"
+msgstr "Détails du fichier attaché"
+
+#: ../xili-re-un-attach-media.php:139
+msgid "Attached to:"
+msgstr "Attaché à :"
+
+#: ../xili-re-un-attach-media.php:146
+msgid "Y/m/d"
+msgstr "d/m/Y"
+
+#: ../xili-re-un-attach-media.php:154
+msgid "(Unattached)"
+msgstr "(non attaché)"
+
+#: ../xili-re-un-attach-media.php:226
 msgid "Docs about xili re/un-attach media"
 msgstr "Docs à propos de xili re/un-attach media"
 
-#: ../xili-re-un-attach-media.php:156
+#: ../xili-re-un-attach-media.php:227
 msgid "Changelog tab of xili re/un-attach media"
 msgstr "Onglet Changelog (Historique) de xili re/un-attach media"
 
-#: ../xili-re-un-attach-media.php:164
+#: ../xili-re-un-attach-media.php:235
 msgid "xili re/un-attach media updated"
 msgstr "xili re/un-attach media mis à jour"
 
-#: ../xili-re-un-attach-media.php:165
+#: ../xili-re-un-attach-media.php:236
 #, php-format
 msgid "xili re/un-attach media was updated to version %s"
 msgstr "xili re/un-attach media a été mis à jour en version %s"
 
-#: ../xili-re-un-attach-media.php:167
+#: ../xili-re-un-attach-media.php:238
 #, php-format
 msgid ""
 "This version %s improves Media (file) Library page by adding actions in File "
@@ -59,25 +75,25 @@ msgstr ""
 "de médias’ dans la colonne fichier de la liste. Voir l'onglet ‘Aide’ en haut "
 "à droite et aussi %s."
 
-#: ../xili-re-un-attach-media.php:212
+#: ../xili-re-un-attach-media.php:283
 #, php-format
 msgid "About the new actions reattach and unattach actions for media by %s"
 msgstr ""
 "A propos des nouvelles actions (Joindre à nouveau, Séparer) ajoutées par "
 "l'extension %s"
 
-#: ../xili-re-un-attach-media.php:213
+#: ../xili-re-un-attach-media.php:284
 msgid "One or two new actions are added in column file after View action:"
 msgstr ""
 "Une ou deux actions sont ajoutées dans la colonne fichier après celle "
 "‘Afficher’ :"
 
-#: ../xili-re-un-attach-media.php:215
+#: ../xili-re-un-attach-media.php:286
 msgid "Attach if the media (file) is not attached to a post."
 msgstr ""
 "Joindre si ce média (fichier) n'est pas attaché à un article (ou une page)."
 
-#: ../xili-re-un-attach-media.php:216
+#: ../xili-re-un-attach-media.php:287
 msgid ""
 "Unattach if the media (file) is attached to a post and you want to unlink "
 "this media from the post."
@@ -85,13 +101,13 @@ msgstr ""
 "Séparer si le média (fichier) est joint à un article et que vous souhaitez "
 "le délier de cet article."
 
-#: ../xili-re-un-attach-media.php:217
+#: ../xili-re-un-attach-media.php:288
 msgid ""
 "Reattach if you want to change the post with which the media is yet attached."
 msgstr ""
 "Joindre à nouveau si vous souhaitez changer l'article (ou la page) avec "
 "lequel le média est lié actuellement."
 
-#: ../xili-re-un-attach-media.php:222
+#: ../xili-re-un-attach-media.php:293
 msgid "Re/un-attach Actions"
 msgstr "Actions Joindre / Séparer"
