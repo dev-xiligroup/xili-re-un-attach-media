@@ -15,7 +15,7 @@ Unattach, Reattach new actions in Media Library Table list to manage attachments
 This plugin named - xili re/un-attach media - adds *Unattach*, *Reattach* new actions in Media Library Table list to manage attachments in the File column just after *View* action.
 This plugin is only active in admin (dashboard) side.
 
-Link to [Github by dev.xiligroup](http://wordpress.org/plugins/search.php?q=xili&sort= "Other xili plugins or themes in dev").
+Link to [Github by dev.xiligroup](https://github.com/dev-xiligroup/xili-re-un-attach-media "and other xili plugins or themes in dev").
 
 Link to [other plugins made by dev.xiligroup](http://wordpress.org/plugins/search.php?q=xili&sort= "Other xili-plugins").
 
@@ -33,7 +33,7 @@ Because unattach is useful when you do a mistake when linking a media to a post.
 
 = What about the source? =
 The goal to create this plugin came when reading the source of davidn.de (which was not OOP made and not maintained since one year): here no too hacky approach, only good hooks, security (nonce, check_admin_referer) and class active only in admin side.
-Inline 'translation ready' help or pointer (55% of the lines).
+Inline 'translation ready' help or pointer (35% of the lines).
 
 = What about WP 4.0-alpha? =
 To recover the list, you must be in table mode (see icon on top right).
