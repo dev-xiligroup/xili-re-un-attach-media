@@ -13,7 +13,7 @@ Requires at least: 3.8.3
 
 Tested up to: 4.0-alpha
 
-Stable tag: 0.9.0
+Stable tag: 0.9.1
 
 License: GPLv2 or later
 
@@ -29,6 +29,10 @@ This plugin is only active in admin (dashboard) side.
 Link to [Github by dev.xiligroup](https://github.com/dev-xiligroup/ "Other xili plugins or themes in dev").
 
 Link to [other plugins made by dev.xiligroup](http://wordpress.org/plugins/search.php?q=xili&sort= "Other xili-plugins").
+
+Link to [latest infos about dev.xiligroup, multilingual child themes of bundled themes, plugins...](http://2014.extend.xiligroup.org/) - in english, french and german..
+
+German translation by YogieAnamCara of [sensorgrafie](http://www.sensorgrafie.de)
 
 == Installation ==
 
@@ -64,7 +68,9 @@ To recover the list, you must be in table mode (see icon on top right).
 3. Icon list or thumbnail mode in WP 4.0-alpha
 
 == Changelog ==
-
+= 0.9.1 (2014-06-23) =
+* Pointer in single page added,
+* German translation by Joerg
 = 0.9.0 (2014-06-15) =
 
 * First release

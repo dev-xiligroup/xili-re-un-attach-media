@@ -4,13 +4,14 @@ Plugin Name: xili re/un-attach media
 Plugin URI: http://dev.xiligroup.com/
 Description: Unattach, Reattach new actions in Media Library Table list to manage attachments
 Author: dev.xiligroup - MSC
-Version: 0.9.0
+Version: 0.9.1
 Author URI: http://dev.xiligroup.com
 License: GPLv2
 Text Domain: xili_re_un_attach_media
 Domain Path: /languages/
 */
 
+# 0.9.1 - 140623 - add pointer for single metabox (attachement infos)
 # 0.9.0 - 140613 - first public version
 
 // Make sure we don't expose any info if called directly
@@ -19,7 +20,7 @@ if ( !function_exists( 'add_action' ) ) {
 	exit;
 }
 
-define( 'XILIUNATTACHMEDIA_VER', '0.9.0' );
+define( 'XILIUNATTACHMEDIA_VER', '0.9.1' );
 
 class xili_re_un_attach_media {
 
@@ -102,6 +103,8 @@ class xili_re_un_attach_media {
 			clean_attachment_cache( $att_id );
 			$_GET['message'] = 1;
 		}
+		$this->insert_news_pointer ( 'xreunam_infos_metabox' ); // pointer
+		add_action( 'admin_print_footer_scripts', array(&$this, 'print_the_pointers_js') );
 	}
 
 	function set_parent_attachment ( $att_id, $parent_id = 0 ) {
@@ -288,11 +291,23 @@ class xili_re_un_attach_media {
 				$pointer_my = 'top+230px'; // relative to the box
 				$pointer_at = 'left+310px'; // relative to div where pointer is attached
 				break;
+
+			case 'xreunam_infos_metabox' :
+				$pointer_text = '<h3>' . esc_js( __( 'xili re/un-attach media metabox', 'xili_re_un_attach_media') ) . '</h3>';
+				$pointer_text .= '<p>' . esc_js( __( 'In this metabox, find infos about the attached post (title, date) and action links to manage the attachment (Attach, Unattach, Reattach)!','xili_re_un_attach_media' ) ). '</p>';
+
+				$pointer_dismiss = 'xreunam_infos_metabox';
+				$pointer_div = '#xili_media_attachment'; // title of page
+
+				$pointer_edge = 'right'; // the arrow
+				$pointer_my = 'right'; // relative to the box
+				$pointer_at = 'left-30px'; // relative to div where pointer is attached
+				break;
 			default: // nothing
 				$pointer_text = '';
 		}
 
-			// inspired from www.generalthreat.com
+		// inspired from www.generalthreat.com
 		// Get the list of dismissed pointers for the user
 		$dismissed = explode( ',', (string) get_user_meta( get_current_user_id(), 'dismissed_wp_pointers', true ) );
 		if ( in_array( $pointer_dismiss, $dismissed ) && $pointer_dismiss == 'xreunam-new-version-'.str_replace('.', '-', XILIUNATTACHMEDIA_VER) ) {

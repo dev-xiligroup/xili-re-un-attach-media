@@ -4,7 +4,7 @@ Tags: media, media library, upload, attach, unattach, reattach, dashboard, attac
 Donate link: http://dev.xiligroup.com/
 Requires at least: 3.8.3
 Tested up to: 4.0-alpha
-Stable tag: 0.9.0
+Stable tag: 0.9.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,13 +13,17 @@ Unattach, Reattach new actions in Media Library Table list to manage attachments
 == Description ==
 
 This plugin named - xili re/un-attach media - adds *Unattach*, *Reattach* new actions in Media Library Table list to manage attachments in the File column just after *View* action.
+In single page to edit Media, a metabox about linked post and the new actions.
 This plugin is only active in admin (dashboard) side.
 
 Link to [Github by dev.xiligroup](https://github.com/dev-xiligroup/xili-re-un-attach-media "and other xili plugins or themes in dev").
 
 Link to [other plugins made by dev.xiligroup](http://wordpress.org/plugins/search.php?q=xili&sort= "Other xili-plugins").
 
+Link to [latest infos about dev.xiligroup, multilingual child themes of bundled themes, plugins...](http://2014.extend.xiligroup.org/) - in english, french and german..
+
 German translation by YogieAnamCara of [sensorgrafie](http://www.sensorgrafie.de)
+
 
 == Installation ==
 
@@ -28,6 +32,7 @@ Note: if downloaded and unzipped from GitHub - delete "master" suffix - the plug
 1. Upload the folder /xili-re-un-attach-media/ containing files including "xili-re-un-attach-media.php" to the "/wp-content/plugins/" directory.
 2. Activate the plugin through the "Plugins" menu in WordPress.
 3. Go to Media Library settings page and move your mouse in the File column.
+4. The attachment (media) edit page with new metabox.
 
 == Frequently Asked Questions ==
 = Why add these actions? =
@@ -43,9 +48,13 @@ To recover the list, you must be in table mode (see icon on top right).
 == Screenshots ==
 1. The new actions in Media Library list in column File.
 2. The new action in Media Library list in column File with only unattached files selection.
-3. Icon list or thumbnail mode in WP 4.0-alpha
+3. Icon list or thumbnail mode in WP 4.0-alpha.
+4. The metabox with infos and actions about attached post.
 
 == Changelog ==
+= 0.9.1 (2014-06-23) =
+* Pointer in single page added,
+* German translation by Joerg
 = 0.9.0 (2014-06-15) =
 * First release
 
