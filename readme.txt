@@ -19,7 +19,7 @@ Link to [Github by dev.xiligroup](https://github.com/dev-xiligroup/xili-re-un-at
 
 Link to [other plugins made by dev.xiligroup](http://wordpress.org/plugins/search.php?q=xili&sort= "Other xili-plugins").
 
-German translation by by YogieAnamCara of [sensorgrafie](http://www.sensorgrafie.de)
+German translation by YogieAnamCara of [sensorgrafie](http://www.sensorgrafie.de)
 
 == Installation ==
 
