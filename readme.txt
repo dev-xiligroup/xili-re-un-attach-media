@@ -19,6 +19,8 @@ Link to [Github by dev.xiligroup](https://github.com/dev-xiligroup/xili-re-un-at
 
 Link to [other plugins made by dev.xiligroup](http://wordpress.org/plugins/search.php?q=xili&sort= "Other xili-plugins").
 
+German translation by by YogieAnamCara of [sensorgrafie](http://www.sensorgrafie.de)
+
 == Installation ==
 
 Note: if downloaded and unzipped from GitHub - delete "master" suffix - the plugin folder name must be /xili-re-un-attach-media/
