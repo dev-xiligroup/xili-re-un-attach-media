@@ -13,7 +13,7 @@ Requires at least: 3.8.3
 
 Tested up to: 4.0-alpha
 
-Stable tag: 0.9.1
+Stable tag: 0.9.2
 
 License: GPLv2 or later
 

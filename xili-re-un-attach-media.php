@@ -4,13 +4,14 @@ Plugin Name: xili re/un-attach media
 Plugin URI: http://dev.xiligroup.com/
 Description: Unattach, Reattach new actions in Media Library Table list to manage attachments
 Author: dev.xiligroup - MSC
-Version: 0.9.1
+Version: 0.9.2
 Author URI: http://dev.xiligroup.com
 License: GPLv2
 Text Domain: xili_re_un_attach_media
 Domain Path: /languages/
 */
 
+# 0.9.2 - 140625 - improved english text and translations (Joerg)
 # 0.9.1 - 140623 - add pointer for single metabox (attachement infos)
 # 0.9.0 - 140613 - first public version
 
@@ -20,7 +21,7 @@ if ( !function_exists( 'add_action' ) ) {
 	exit;
 }
 
-define( 'XILIUNATTACHMEDIA_VER', '0.9.1' );
+define( 'XILIUNATTACHMEDIA_VER', '0.9.2' );
 
 class xili_re_un_attach_media {
 
@@ -268,8 +269,8 @@ class xili_re_un_attach_media {
 	 *
 	 */
 	function localize_admin_js( $case_news, $news_id ) {
-		$about = __('Docs about xili re/un-attach media', 'xili_re_un_attach_media');
-		$changelog = __('Changelog tab of xili re/un-attach media', 'xili_re_un_attach_media');
+		$about = __('Documentation of xili re/un-attach media', 'xili_re_un_attach_media');
+		$changelog = __('at the Changelog tab of xili re/un-attach media at WordPress.org', 'xili_re_un_attach_media');
 		//$pointer_Offset = '';
 		$pointer_edge = '';
 		$pointer_at = '';
@@ -278,9 +279,9 @@ class xili_re_un_attach_media {
 
 			case 'xreunam_new_version' :
 				$pointer_text = '<h3>' . esc_js( __( 'xili re/un-attach media updated', 'xili_re_un_attach_media') ) . '</h3>';
-				$pointer_text .= '<p>' . esc_js( sprintf( __( 'xili re/un-attach media was updated to version %s', 'xili_re_un_attach_media' ) , XILIUNATTACHMEDIA_VER) ). '</p>';
+				$pointer_text .= '<p>' . esc_js( sprintf( __( 'xili re/un-attach media has been updated to version %s', 'xili_re_un_attach_media' ) , XILIUNATTACHMEDIA_VER) ). '</p>';
 
-				$pointer_text .= '<p>' . esc_js( sprintf( __( 'This version %s improves Media (file) Library page by adding actions in File column of the list. See Help tab on top right and also %s.','xili_re_un_attach_media' ) , XILIUNATTACHMEDIA_VER, '<a href="http://wordpress.org/plugins/xili-re-un-attach-media/changelog/" title="'.$changelog.'" >'.$changelog.'</a>') ). '</p>';
+				$pointer_text .= '<p>' . esc_js( sprintf( __( 'This version %s improves Media (file) Library page by adding actions to the File column of the list. See the Help tab on top right and also %s.','xili_re_un_attach_media' ) , XILIUNATTACHMEDIA_VER, '<a href="http://wordpress.org/plugins/xili-re-un-attach-media/changelog/" title="'.$changelog.'" >'.$changelog.'</a>') ). '</p>';
 
 				//$pointer_text .= '<p>' . esc_js( sprintf( __( 'Previous version before v. %s improves xml import and importations from GlotPress. See also %s.','xili-language' ) , XILILANGUAGE_VER, '<a href="http://wordpress.org/plugins/xili-language/changelog/" title="'.$changelog.'" >'.$changelog.'</a>') ). '</p>';
 
@@ -294,7 +295,7 @@ class xili_re_un_attach_media {
 
 			case 'xreunam_infos_metabox' :
 				$pointer_text = '<h3>' . esc_js( __( 'xili re/un-attach media metabox', 'xili_re_un_attach_media') ) . '</h3>';
-				$pointer_text .= '<p>' . esc_js( __( 'In this metabox, find infos about the attached post (title, date) and action links to manage the attachment (Attach, Unattach, Reattach)!','xili_re_un_attach_media' ) ). '</p>';
+				$pointer_text .= '<p>' . esc_js( __( 'In the metabox you find information about the attached post (title, date) and action links to manage the attachment (Attach, Unattach, Reattach)!','xili_re_un_attach_media' ) ). '</p>';
 
 				$pointer_dismiss = 'xreunam_infos_metabox';
 				$pointer_div = '#xili_media_attachment'; // title of page
@@ -338,7 +339,7 @@ class xili_re_un_attach_media {
 		if ( $screen->id == 'upload' ) {
 
 			$to_remember = '<p><strong>' . sprintf( __('About the new actions reattach and unattach actions for media by %s', 'xili_re_un_attach_media'), '[©xili]') . '</strong></p>'
-							.'<p>' . __('One or two new actions are added in column file after View action:', 'xili_re_un_attach_media') . '</p>'
+							.'<p>' . __('One or two new actions are added in the column file just behind the action View:', 'xili_re_un_attach_media') . '</p>'
 							. '<ul>'
 								.'<li>' . __('Attach if the media (file) is not attached to a post.', 'xili_re_un_attach_media') . '</li>'
 								.'<li>' . __('Unattach if the media (file) is attached to a post and you want to unlink this media from the post.', 'xili_re_un_attach_media') . '</li>'
