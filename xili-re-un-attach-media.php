@@ -4,13 +4,13 @@ Plugin Name: xili re/un-attach media
 Plugin URI: http://dev.xiligroup.com/
 Description: Unattach, Reattach new actions in Media Library Table list to manage attachments
 Author: dev.xiligroup - MSC
-Version: 0.9.2
+Version: 0.9.3
 Author URI: http://dev.xiligroup.com
 License: GPLv2
 Text Domain: xili_re_un_attach_media
 Domain Path: /languages/
 */
-
+# 0.9.3 - 141219 - ready for WP 4.1 Dinah
 # 0.9.2 - 140625 - improved english text and translations (Joerg)
 # 0.9.1 - 140623 - add pointer for single metabox (attachement infos)
 # 0.9.0 - 140613 - first public version
@@ -21,7 +21,7 @@ if ( !function_exists( 'add_action' ) ) {
 	exit;
 }
 
-define( 'XILIUNATTACHMEDIA_VER', '0.9.2' );
+define( 'XILIUNATTACHMEDIA_VER', '0.9.3' );
 
 class xili_re_un_attach_media {
 
