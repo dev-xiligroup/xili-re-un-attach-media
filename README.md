@@ -11,9 +11,9 @@ Donate link: http://dev.xiligroup.com/
 
 Requires at least: 3.8.3
 
-Tested up to: 4.1
+Tested up to: 4.2
 
-Stable tag: 0.9.3
+Stable tag: 0.9.4
 
 License: GPLv2 or later
 
@@ -55,7 +55,7 @@ Because unattach is useful when you do a mistake when linking a media to a post.
 The goal to create this plugin came when reading the source of davidn.de (which was not OOP made and not maintained since one year): here no too hacky approach, only good hooks, security (nonce, check_admin_referer) and class active only in admin side.
 Inline 'translation ready' help or pointer (55% of the lines).
 
-= What about WP 4.0-alpha? =
+= What about WP 4.0+  ? =
 
 To recover the list, you must be in table mode (see icon on top right).
 
@@ -67,6 +67,9 @@ To recover the list, you must be in table mode (see icon on top right).
 4. The metabox with infos and actions about attached post.
 
 == Changelog ==
+= 0.9.4 (2015-04-22) =
+* fixes
+* ready for WP 4.2
 = 0.9.3 (2014-12-19) =
 * ready for WP 4.1 Dinah
 = 0.9.2 (2014-06-25) =
@@ -75,7 +78,6 @@ To recover the list, you must be in table mode (see icon on top right).
 * Pointer in single page added,
 * German translation by Joerg
 = 0.9.0 (2014-06-15) =
-
 * First release
 
 == Upgrade Notice ==

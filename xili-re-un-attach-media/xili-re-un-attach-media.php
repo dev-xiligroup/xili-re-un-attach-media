@@ -4,12 +4,13 @@ Plugin Name: xili re/un-attach media
 Plugin URI: http://dev.xiligroup.com/
 Description: Unattach, Reattach new actions in Media Library Table list to manage attachments
 Author: dev.xiligroup - MSC
-Version: 0.9.3
+Version: 0.9.4
 Author URI: http://dev.xiligroup.com
 License: GPLv2
 Text Domain: xili_re_un_attach_media
 Domain Path: /languages/
 */
+# 0.9.4 - 150423 - esc_html(add_query_arg fixes
 # 0.9.3 - 141219 - ready for WP 4.1 Dinah
 # 0.9.2 - 140625 - improved english text and translations (Joerg)
 # 0.9.1 - 140623 - add pointer for single metabox (attachement infos)
@@ -21,7 +22,7 @@ if ( !function_exists( 'add_action' ) ) {
 	exit;
 }
 
-define( 'XILIUNATTACHMEDIA_VER', '0.9.3' );
+define( 'XILIUNATTACHMEDIA_VER', '0.9.4' );
 
 class xili_re_un_attach_media {
 
@@ -70,12 +71,12 @@ class xili_re_un_attach_media {
 
 				if ( $referer = wp_get_referer() ) {
 					if ( false !== strpos( $referer, 'post.php' ) ) { // from metabox in Edit Media
-						$location = add_query_arg( array( 'message' => '1' ) , $referer );
+						$location = esc_html(add_query_arg( array( 'message' => '1' ) , $referer ));
 						wp_redirect( $location );
 						exit;
 					} else if ( false !== strpos( $referer, 'upload.php' ) ) {
 						$location = remove_query_arg( array('xiliaction', 'post_id', '_wpnonce'), $referer ); // clean for further actions
-						$location = add_query_arg( array( 'message' => '1' ) , $location );
+						$location = esc_html(add_query_arg( array( 'message' => '1' ) , $location ));
 						wp_redirect( $location );
 						exit;
 					}
