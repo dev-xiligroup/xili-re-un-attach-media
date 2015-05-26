@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: xili re/un attach media\n"
 "Report-Msgid-Bugs-To: http://dev.xiligroup.com/\n"
 "POT-Creation-Date: 2015-05-26 17:47+0100\n"
-"PO-Revision-Date: 2015-05-26 17:48+0100\n"
+"PO-Revision-Date: 2015-05-26 18:33+0100\n"
 "Last-Translator: dev.xiligroup <contact@xiligroup.com>\n"
 "Language-Team: dev.xiligroup.com <contact@xiligroup.com>\n"
 "Language: fr_FR\n"
@@ -103,7 +103,7 @@ msgid ""
 "the Help tab on top right and also %s."
 msgstr ""
 "Cette version %s ajoute des actions possibles pour mettre ou non des images "
-"en une. Voir l'onglet ‘Aide’ en haut à droite et aussi %s."
+"en une. Voir l’onglet ‘Aide’ en haut à droite et aussi %s."
 
 #: ../xili-re-un-attach-media.php:376
 #, php-format
@@ -112,7 +112,7 @@ msgid ""
 "actions to the File column of the list. See also %s."
 msgstr ""
 "La version précédente de %s ajoute des actions possibles sur cette page "
-"‘Bibliothèque de médias’ dans la colonne fichier de la liste. Voir l'onglet "
+"‘Bibliothèque de médias’ dans la colonne fichier de la liste. Voir l’onglet "
 "‘Aide’ en haut à droite et aussi %s."
 
 #: ../xili-re-un-attach-media.php:387
