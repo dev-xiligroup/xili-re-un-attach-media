@@ -2,9 +2,9 @@
 Contributors: michelwppi
 Tags: media, media library, upload, attach, unattach, reattach, dashboard, attachment
 Donate link: http://dev.xiligroup.com/
-Requires at least: 3.8.3
-Tested up to: 4.2
-Stable tag: 0.9.4
+Requires at least: 4.0.5
+Tested up to: 4.2.2
+Stable tag: 1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -52,6 +52,8 @@ To recover the list, you must be in table mode (see icon on top right).
 4. The metabox with infos and actions about attached post.
 
 == Changelog ==
+= 1.0 (2015-05-26) =
+* Set/Unset attached image as featured image.
 = 0.9.4 (2015-04-22) =
 * fixes
 * ready for WP 4.2
