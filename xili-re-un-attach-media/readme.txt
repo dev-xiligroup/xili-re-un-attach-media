@@ -3,7 +3,7 @@ Contributors: michelwppi
 Tags: media, media library, upload, attach, unattach, reattach, dashboard, attachment
 Donate link: http://dev.xiligroup.com/
 Requires at least: 4.0.5
-Tested up to: 4.2.2
+Tested up to: 4.4.1
 Stable tag: 1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -34,6 +34,8 @@ Note: if downloaded and unzipped from GitHub - delete "master" suffix - the plug
 3. Go to Media Library settings page and move your mouse in the File column.
 4. The attachment (media) edit page with new metabox.
 
+© 2014-2016 MS - dev.xiligroup.com
+
 == Frequently Asked Questions ==
 = Why add these actions? =
 Because unattach is useful when you do a mistake when linking a media to a post. Default action only offers to erase the media (file) :-(.
@@ -42,7 +44,7 @@ Because unattach is useful when you do a mistake when linking a media to a post.
 The goal to create this plugin came when reading the source of davidn.de (which was not OOP made and not maintained since one year): here no too hacky approach, only good hooks, security (nonce, check_admin_referer) and class active only in admin side.
 Inline 'translation ready' help or pointer (35% of the lines).
 
-= What about WP 4.0-alpha? =
+= What about WP 4.x =
 To recover the list, you must be in table mode (see icon on top right).
 
 == Screenshots ==
@@ -52,7 +54,7 @@ To recover the list, you must be in table mode (see icon on top right).
 4. The metabox with infos and actions about attached post.
 
 == Changelog ==
-= 1.0 (2015-05-26) =
+= 1.0 (2015-05-26 2016-01-24) =
 * Set/Unset attached image as featured image.
 = 0.9.4 (2015-04-22) =
 * fixes
