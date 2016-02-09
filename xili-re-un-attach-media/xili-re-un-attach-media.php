@@ -4,12 +4,15 @@ Plugin Name: xili re/un-attach media
 Plugin URI: http://dev.xiligroup.com/
 Description: Unattach, Reattach new actions in Media Library Table list to manage attachments
 Author: dev.xiligroup - MSC
-Version: 1.0
+Version: 1.0.1
 Author URI: http://dev.xiligroup.com
 License: GPLv2
-Text Domain: xili_re_un_attach_media
+Text Domain: xili-re-un-attach-media
 Domain Path: /languages/
 */
+
+# 1.0.1 - 160210 - compatible with glotpress - text domain same as plugin name
+
 # 1.0 - 150526 - add featured image functions (thumbnail) - erase esc_html in redirection
 # 0.9.4 - 150423 - esc_html(add_query_arg fixes
 # 0.9.3 - 141219 - ready for WP 4.1 Dinah
@@ -23,9 +26,9 @@ if ( !function_exists( 'add_action' ) ) {
 	exit;
 }
 
-define( 'XILIUNATTACHMEDIA_VER', '1.0' );
+define( 'XILIUNATTACHMEDIA_VER', '1.0.1' );
 
-class xili_re_un_attach_media {
+class Xili_Re_Un_Attach_Media {
 
 	var $news_case = array(); // for pointers
 	var $news_id = 0 ;
@@ -196,8 +199,8 @@ class xili_re_un_attach_media {
 		} else {
 			if ( current_user_can( 'edit_post', $post->ID ) ) {
 				$url_unattach = wp_nonce_url('upload.php?xiliaction=unattach&post_id=' . $post->ID ,'media-post_' . $post->ID); //
-				$actions['un-attach'] = '<a href="'.$url_unattach.'" >'.__( 'Unattach','xili_re_un_attach_media' ).'</a>';
-				$actions['re-attach'] = '<a href="#the-list" onclick="findPosts.open( \'media[]\',\''.$post->ID.'\' );return false;" class="hide-if-no-js">'.__( 'Reattach','xili_re_un_attach_media' ).'</a>';
+				$actions['un-attach'] = '<a href="'.$url_unattach.'" >'.__( 'Unattach', 'xili-re-un-attach-media' ).'</a>';
+				$actions['re-attach'] = '<a href="#the-list" onclick="findPosts.open( \'media[]\',\''.$post->ID.'\' );return false;" class="hide-if-no-js">'.__( 'Reattach', 'xili-re-un-attach-media' ).'</a>';
 
 				$post_mime_types = get_post_mime_types();
 				$keys = array_keys( wp_match_mime_types( array_keys( $post_mime_types ), $post->post_mime_type ) );
@@ -206,14 +209,14 @@ class xili_re_un_attach_media {
 					// set as featured
 					if ( $post->ID == get_post_thumbnail_id( $post->post_parent ) ) { // only featured = attached
 						$url_set_featured = wp_nonce_url('upload.php?xiliaction=removefeatured&post_id=' . $post->ID . '&parent_id='. $post->post_parent, 'media-post_' . $post->ID);
-						$actions['remove-featured'] = '<a href="'.$url_set_featured.'" >'.__( 'Unset as featured','xili_re_un_attach_media' ).'</a>';
+						$actions['remove-featured'] = '<a href="'.$url_set_featured.'" >'.__( 'Unset as featured', 'xili-re-un-attach-media' ).'</a>';
 					} else {
 						if ( has_post_thumbnail( $post->post_parent ) ) {  // parent has a not attached image as featured
 							$url_set_featured = wp_nonce_url('upload.php?xiliaction=setfeatured&post_id=' . $post->ID . '&parent_id='. $post->post_parent, 'media-post_' . $post->ID);
-							$actions['set-featured'] = '<a href="'.$url_set_featured.'" >'.__( 'Change featured','xili_re_un_attach_media' ).'</a>';
+							$actions['set-featured'] = '<a href="'.$url_set_featured.'" >'.__( 'Change featured', 'xili-re-un-attach-media' ).'</a>';
 						} else {
 							$url_set_featured = wp_nonce_url('upload.php?xiliaction=setfeatured&post_id=' . $post->ID . '&parent_id='. $post->post_parent, 'media-post_' . $post->ID);
-							$actions['set-featured'] = '<a href="'.$url_set_featured.'" >'.__( 'Set featured','xili_re_un_attach_media' ).'</a>';
+							$actions['set-featured'] = '<a href="'.$url_set_featured.'" >'.__( 'Set featured', 'xili-re-un-attach-media' ).'</a>';
 						}
 					}
 				}
@@ -229,8 +232,8 @@ class xili_re_un_attach_media {
 	 *
 	 */
 	function add_custom_box_in_media_edit(){
-		load_plugin_textdomain('xili_re_un_attach_media', false, $this->plugin_subfoldername . '/languages' ); // here to be live changed
-		add_meta_box( 'xili_media_attachment', __( 'Attachment infos', 'xili_re_un_attach_media') , array(&$this,'media_attachment_box'), 'attachment', 'side', 'low' );
+		load_plugin_textdomain( 'xili-re-un-attach-media', false, $this->plugin_subfoldername . '/languages' ); // here to be live changed
+		add_meta_box( 'xili_media_attachment', __( 'Attachment infos', 'xili-re-un-attach-media') , array(&$this,'media_attachment_box'), 'attachment', 'side', 'low' );
 	}
 
 	function media_attachment_box () {
@@ -245,7 +248,7 @@ class xili_re_un_attach_media {
 			$title = _draft_or_post_title( $post->post_parent );
 			$parent_type = get_post_type_object( $parent->post_type );
 
-			echo '<p>'.__( 'Attached to:', 'xili_re_un_attach_media' ).'<br /><strong>';
+			echo '<p>'.__( 'Attached to:', 'xili-re-un-attach-media' ).'<br /><strong>';
 			if ( current_user_can( 'edit_post', $post->post_parent ) && $parent_type && $parent_type->show_ui ) { ?>
 					<a href="<?php echo get_edit_post_link( $post->post_parent ); ?>">
 						<?php echo $title ?></a><?php
@@ -256,30 +259,30 @@ class xili_re_un_attach_media {
 			</p>
 		<?php
 			$url_unattach = wp_nonce_url('upload.php?xiliaction=unattach&post_id=' . $post->ID ,'media-post_' . $post->ID);
-			echo '<p><a href="'.$url_unattach.'">'.__( 'Unattach','xili_re_un_attach_media' ).'</a>';
+			echo '<p><a href="'.$url_unattach.'">'.__( 'Unattach', 'xili-re-un-attach-media' ).'</a>';
 			echo '&nbsp;|&nbsp;';
-			echo '<a href="#the-list" onclick="findPosts.open( \'media[]\',\''.$post->ID.'\' );return false;" class="hide-if-no-js">'.__( 'Reattach','xili_re_un_attach_media' ).'</a></p>';
+			echo '<a href="#the-list" onclick="findPosts.open( \'media[]\',\''.$post->ID.'\' );return false;" class="hide-if-no-js">'.__( 'Reattach', 'xili-re-un-attach-media' ).'</a></p>';
 
 			$post_mime_types = get_post_mime_types();
 			$keys = array_keys( wp_match_mime_types( array_keys( $post_mime_types ), $post->post_mime_type ) );
 			$type = reset( $keys );
 			if ( 'image' == $type ) {
 				if ( $post->ID == get_post_thumbnail_id( $post->post_parent ) ) { // only featured = attached
-					echo '<p>'.__( 'This image is also set as featured to the post with above title', 'xili_re_un_attach_media' ).'<br />';
+					echo '<p>'.__( 'This image is also set as featured to the post with above title', 'xili-re-un-attach-media' ).'<br />';
 					$url_set_featured = wp_nonce_url('upload.php?xiliaction=removefeatured&post_id=' . $post->ID . '&parent_id='. $post->post_parent, 'media-post_' . $post->ID);
-					echo '<a href="'.$url_set_featured.'" >'.__( 'Unset as featured','xili_re_un_attach_media' ).'</a>';
+					echo '<a href="'.$url_set_featured.'" >'.__( 'Unset as featured', 'xili-re-un-attach-media' ).'</a>';
 					echo '</p>';
 				} else {
 
 					if ( has_post_thumbnail( $post->post_parent ) ) {  // parent has a not attached image as featured
-						echo '<p>'.__( 'The post has another image set as featured', 'xili_re_un_attach_media' ).'<br />';
+						echo '<p>'.__( 'The post has another image set as featured', 'xili-re-un-attach-media' ).'<br />';
 						$url_set_featured = wp_nonce_url('upload.php?xiliaction=setfeatured&post_id=' . $post->ID . '&parent_id='. $post->post_parent, 'media-post_' . $post->ID);
-						echo '<a href="'.$url_set_featured.'" >'.__( 'Change featured','xili_re_un_attach_media' ).'</a>';
+						echo '<a href="'.$url_set_featured.'" >'.__( 'Change featured', 'xili-re-un-attach-media' ).'</a>';
 						echo '</p>';
 					} else {
-						echo '<p>'.__( 'This image is not set as featured', 'xili_re_un_attach_media' ).'<br />';
+						echo '<p>'.__( 'This image is not set as featured', 'xili-re-un-attach-media' ).'<br />';
 						$url_set_featured = wp_nonce_url('upload.php?xiliaction=setfeatured&post_id=' . $post->ID . '&parent_id='. $post->post_parent, 'media-post_' . $post->ID);
-						echo '<a href="'.$url_set_featured.'" >'.__( 'Set featured','xili_re_un_attach_media' ).'</a>';
+						echo '<a href="'.$url_set_featured.'" >'.__( 'Set featured', 'xili-re-un-attach-media' ).'</a>';
 						echo '</p>';
 					}
 				}
@@ -368,8 +371,8 @@ class xili_re_un_attach_media {
 	 *
 	 */
 	function localize_admin_js( $case_news, $news_id ) {
-		$about = __('Documentation of xili re/un-attach media', 'xili_re_un_attach_media');
-		$changelog = __('at the Changelog tab of xili re/un-attach media at WordPress.org', 'xili_re_un_attach_media');
+		$about = __('Documentation of xili re/un-attach media', 'xili-re-un-attach-media');
+		$changelog = __('at the Changelog tab of xili re/un-attach media at WordPress.org', 'xili-re-un-attach-media');
 		//$pointer_Offset = '';
 		$pointer_edge = '';
 		$pointer_at = '';
@@ -377,12 +380,12 @@ class xili_re_un_attach_media {
 		switch ( $case_news ) {
 
 			case 'xreunam_new_version' :
-				$pointer_text = '<h3>' . esc_js( __( 'xili re/un-attach media updated', 'xili_re_un_attach_media') ) . '</h3>';
-				$pointer_text .= '<p>' . esc_js( sprintf( __( 'xili re/un-attach media has been updated to version %s', 'xili_re_un_attach_media' ) , XILIUNATTACHMEDIA_VER) ). '</p>';
+				$pointer_text = '<h3>' . esc_js( __( 'xili re/un-attach media updated', 'xili-re-un-attach-media') ) . '</h3>';
+				$pointer_text .= '<p>' . esc_js( sprintf( __( 'xili re/un-attach media has been updated to version %s', 'xili-re-un-attach-media' ) , XILIUNATTACHMEDIA_VER) ). '</p>';
 
-				$pointer_text .= '<p>' . esc_js( sprintf( __( 'This version %s add some links to set/unset attached image as featured. See the Help tab on top right and also %s.','xili_re_un_attach_media' ) , XILIUNATTACHMEDIA_VER, '<a href="http://wordpress.org/plugins/xili-re-un-attach-media/changelog/" title="'.$changelog.'" >'.$changelog.'</a>') ). '</p>';
+				$pointer_text .= '<p>' . esc_js( sprintf( __( 'This version %s add some links to set/unset attached image as featured. See the Help tab on top right and also %s.', 'xili-re-un-attach-media' ) , XILIUNATTACHMEDIA_VER, '<a href="http://wordpress.org/plugins/xili-re-un-attach-media/changelog/" title="'.$changelog.'" >'.$changelog.'</a>') ). '</p>';
 
-				$pointer_text .= '<p>' . esc_js( sprintf( __( 'Previous version before v. %s improves Media (file) Library page by adding actions to the File column of the list. See also %s.','xili_re_un_attach_media' ) , XILIUNATTACHMEDIA_VER, '<a href="http://wordpress.org/plugins/xili-re-un-attach-media/changelog/" title="'.$changelog.'" >'.$changelog.'</a>') ). '</p>';
+				$pointer_text .= '<p>' . esc_js( sprintf( __( 'Previous version before v. %s improves Media (file) Library page by adding actions to the File column of the list. See also %s.', 'xili-re-un-attach-media' ) , XILIUNATTACHMEDIA_VER, '<a href="http://wordpress.org/plugins/xili-re-un-attach-media/changelog/" title="'.$changelog.'" >'.$changelog.'</a>') ). '</p>';
 
 				$pointer_dismiss = 'xreunam-new-version-'.str_replace('.', '-', XILIUNATTACHMEDIA_VER);
 				$pointer_div = 'div.wrap > h2'; // title of page
@@ -393,8 +396,8 @@ class xili_re_un_attach_media {
 				break;
 
 			case 'xreunam_infos_metabox' :
-				$pointer_text = '<h3>' . esc_js( __( 'xili re/un-attach media metabox', 'xili_re_un_attach_media') ) . '</h3>';
-				$pointer_text .= '<p>' . esc_js( __( 'In the metabox you find information about the attached post (title, date) and action links to manage the attachment (Attach, Unattach, Reattach)!','xili_re_un_attach_media' ) ). '</p>';
+				$pointer_text = '<h3>' . esc_js( __( 'xili re/un-attach media metabox', 'xili-re-un-attach-media') ) . '</h3>';
+				$pointer_text .= '<p>' . esc_js( __( 'In the metabox you find information about the attached post (title, date) and action links to manage the attachment (Attach, Unattach, Reattach)!', 'xili-re-un-attach-media' ) ). '</p>';
 
 				$pointer_dismiss = 'xreunam_infos_metabox';
 				$pointer_div = '#xili_media_attachment'; // title of page
@@ -437,31 +440,31 @@ class xili_re_un_attach_media {
 
 		if ( $screen->id == 'upload' ) {
 
-			$to_remember = '<p><strong>' . sprintf( __('About the new actions reattach and unattach actions for media by %s', 'xili_re_un_attach_media'), '[©xili]') . '</strong></p>'
-							.'<p>' . __('One or two new actions are added in the column file just behind the action View:', 'xili_re_un_attach_media') . '</p>'
+			$to_remember = '<p><strong>' . sprintf( __('About the new actions reattach and unattach actions for media by %s', 'xili-re-un-attach-media'), '[©xili]') . '</strong></p>'
+							.'<p>' . __('One or two new actions are added in the column file just behind the action View:', 'xili-re-un-attach-media') . '</p>'
 							. '<ul>'
-								.'<li>' . __('Attach if the media (file) is not attached to a post.', 'xili_re_un_attach_media') . '</li>'
-								.'<li>' . __('Unattach if the media (file) is attached to a post and you want to unlink this media from the post.', 'xili_re_un_attach_media') . '</li>'
-								.'<li>' . __('Reattach if you want to change the post with which the media is yet attached.', 'xili_re_un_attach_media') . '</li>'
+								.'<li>' . __('Attach if the media (file) is not attached to a post.', 'xili-re-un-attach-media') . '</li>'
+								.'<li>' . __('Unattach if the media (file) is attached to a post and you want to unlink this media from the post.', 'xili-re-un-attach-media') . '</li>'
+								.'<li>' . __('Reattach if you want to change the post with which the media is yet attached.', 'xili-re-un-attach-media') . '</li>'
 								. '</ul>';
 
 			$screen->add_help_tab( array(
 				'id'		=> 'xili-re-un-attach-media',
-				'title'		=> __('Re/un-attach Actions', 'xili_re_un_attach_media'),
+				'title'		=> __('Re/un-attach Actions', 'xili-re-un-attach-media'),
 				'content'	=> $to_remember,
 			));
 
-			$to_remember = '<p><strong>' . sprintf( __('About the new actions set / unset featured actions for images by %s', 'xili_re_un_attach_media'), '[©xili]') . '</strong></p>'
-							.'<p>' . __('One of this two new actions are added in the column file just behind the action View:', 'xili_re_un_attach_media') . '</p>'
+			$to_remember = '<p><strong>' . sprintf( __('About the new actions set / unset featured actions for images by %s', 'xili-re-un-attach-media'), '[©xili]') . '</strong></p>'
+							.'<p>' . __('One of this two new actions are added in the column file just behind the action View:', 'xili-re-un-attach-media') . '</p>'
 							. '<ul>'
-								.'<li>' . __('Set as featured if you want to set this attached image as a featured image in the parent post.', 'xili_re_un_attach_media') . '</li>'
-								.'<li>' . __('Unset as featured if you want to unset this attached image as a featured image in the parent post.', 'xili_re_un_attach_media') . '</li>'
-								.'<li><em>' . __('Note that featured images are not always an attached image. In other words, an image can be set as featured to several posts.', 'xili_re_un_attach_media') . '</em></li>'
+								.'<li>' . __('Set as featured if you want to set this attached image as a featured image in the parent post.', 'xili-re-un-attach-media') . '</li>'
+								.'<li>' . __('Unset as featured if you want to unset this attached image as a featured image in the parent post.', 'xili-re-un-attach-media') . '</li>'
+								.'<li><em>' . __('Note that featured images are not always an attached image. In other words, an image can be set as featured to several posts.', 'xili-re-un-attach-media') . '</em></li>'
 							. '</ul>';
 
 			$screen->add_help_tab( array(
 				'id'		=> 'xili-re-un-attach-media-set-featured',
-				'title'		=> __('Set featured Actions', 'xili_re_un_attach_media'),
+				'title'		=> __('Set featured Actions', 'xili-re-un-attach-media'),
 				'content'	=> $to_remember,
 			));
 
@@ -475,7 +478,7 @@ class xili_re_un_attach_media {
  */
 function xili_re_un_attach_media () {
 	if ( is_admin() ){
-		$xili_re_un_attach_media = new xili_re_un_attach_media(); // only used in admin side (upload.php and Edit Media screen)
+		$xili_re_un_attach_media = new Xili_Re_Un_Attach_Media(); // only used in admin side (upload.php and Edit Media screen)
 	}
 }
 add_action( 'plugins_loaded', 'xili_re_un_attach_media', 10 );

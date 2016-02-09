@@ -3,8 +3,8 @@ Contributors: michelwppi
 Tags: media, media library, upload, attach, unattach, reattach, dashboard, attachment
 Donate link: http://dev.xiligroup.com/
 Requires at least: 4.0.5
-Tested up to: 4.4.1
-Stable tag: 1.0
+Tested up to: 4.4.2
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -54,6 +54,8 @@ To recover the list, you must be in table mode (see icon on top right).
 4. The metabox with infos and actions about attached post.
 
 == Changelog ==
+= 1.0.1 (2016-02-10) =
+* compatible with glotpress - text domain (and .po/.mo filenames) same as plugin name
 = 1.0 (2015-05-26 2016-01-24) =
 * Set/Unset attached image as featured image.
 = 0.9.4 (2015-04-22) =
